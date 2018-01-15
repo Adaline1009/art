@@ -1,0 +1,24 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tezis.mapper.DocumentMapper">
+
+    <select id="getDocument" resultType="com.tezis.entity.Document">
+     SELECT *FROM DOCUMENTS WHERE DOC_ID=#{docId};
+      <!--  select * from document where id = #{id, typeHandler=com.tezis.mapper.DocumentMapper.UUIDTypeHandler}-->
+    </select>
+
+    <insert id="insertDocument">
+     <!--   insert into users values(#{id, typeHandler=org.apache.ibatis.submitted.uuid_test.UUIDTypeHandler}, #{name})-->
+        INSERT INTO DOCUMENTS(doc_number,date,content,doc_uuid) VALUES (#{docNumber},#{date},#{content},
+        #{uuid, typeHandler=com.tezis.mapper.UUIDTypeHandler})
+    </insert>
+    <update id="updateDocument">
+        UPDATE DOCUMENTS SET doc_number=#{docNumber}, date=#{date}, content=#{content},doc_uuid=#{uuid, typeHandler=com.tezis.mapper.DocumentMapper.UUIDTypeHandler}
+            where doc_id=#{docId}
+    </update>
+<delete id="deleteDocument">
+  DELETE FROM DOCUMENTS WHERE doc_id=#{docId}
+</delete>
+</mapper>
